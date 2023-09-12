@@ -5,4 +5,5 @@ The binary "snake" is an ELF binary, so just runs in linux.
 
 Example of the game: 
 
+
 ![gameplay](https://github.com/dylanabzr/Snake-Game-raylib/blob/main/gameplay.gif)
