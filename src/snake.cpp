@@ -4,7 +4,7 @@
 #include <ctime>
 
 struct SnakeSquare{
-  int width = 30, height = 30;
+  int width = 35, height = 35;
   int posX, posY;
 };
 
@@ -16,15 +16,15 @@ struct Fruit{
 class Game{
 public:
   Game(){
-  for (int i = 0; i < 3; i++){
-    square[i].posX = 100 + 17*i;
-    square[i].posY = 100;
+  for (int i = 0; i < squares_quantity; i++){
+    square[i].posX = 100 + 2 * i;
+    square[i].posY = 100 + 2 * i;
 }
   }
 protected:
   int lose = 0;
   SnakeSquare square[210];
-  unsigned char squares_quantity = 3;
+  unsigned char squares_quantity = 20;
 };
 
 class CollisionANDFruit : public Game{
@@ -77,16 +77,13 @@ class Movement : public CollisionANDFruit{
     } 
     int movementStateX = 1, movementStateY = 0;
     void snakeMovement(){
-      collision();
-      usleep(200000);
+      //usleep(150000);
       for (unsigned char i = squares_quantity; i > 0; i--){
         square[i].posX = square[i-1].posX;
         square[i].posY = square[i-1].posY;
       }
-      square[0].posX += 32 * movementStateX;
-      square[0].posY += 32 * movementStateY;
-      collision();
-
+      square[0].posX += 3 * movementStateX;
+      square[0].posY += 3 * movementStateY;
 
       
     } 
@@ -96,14 +93,18 @@ class Movement : public CollisionANDFruit{
 class Graphics : public Movement{
   protected:
     void gameUI(){
+      ClearBackground(BLACK); 
       fruitSpawn();
       snakeMovement();
-      ClearBackground(BLACK);
+      collision();
       BeginDrawing();
-      for (int i = 0; i < squares_quantity; i++)
+      for (int i = 0; i < squares_quantity; i++){
         DrawRectangle(square[i].posX, square[i].posY, square[0].width, square[0].height, RAYWHITE);
+      }
       DrawCircle(fruit.posX, fruit.posY, fruit.radius, RED);
       EndDrawing();
+      ClearBackground(BLACK); 
+
   }
 };
 
@@ -111,6 +112,7 @@ class WindowLoop : public Graphics{
   public:
     void windowLoop(){
       InitWindow(450, 450, "Snake");
+      SetTargetFPS(60);
       while(!WindowShouldClose()){
         if (IsKeyDown(KEY_ESCAPE))
           break;
