@@ -2,9 +2,11 @@
 #include <unistd.h> 
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
+#include <array>
 
 struct SnakeSquare{
-  int width = 35, height = 35;
+  int width = 25, height = 25;
   int posX, posY;
 };
 
@@ -22,21 +24,21 @@ public:
 }
   }
 protected:
-  int lose = 0;
-  SnakeSquare square[210];
-  unsigned char squares_quantity = 20;
+  int lose {0};
+  std::array <SnakeSquare, 400> square;
+  unsigned char squares_quantity {20};
 };
 
 class CollisionANDFruit : public Game{
   protected:
     Fruit fruit;
-    int fruiteaten = 0;
+    int fruiteaten {0};
     void fruitSpawn(){
       if (!fruiteaten){
       SetRandomSeed(square[0].posX + squares_quantity + std::time(nullptr));
-      fruit.posX = GetRandomValue(20, 430);
+      fruit.posX = GetRandomValue(20, 420);
       SetRandomSeed(square[0].posY + squares_quantity + std::time(nullptr));
-      fruit.posY = GetRandomValue(20, 430);
+      fruit.posY = GetRandomValue(20, 420);
       fruiteaten = 1;
       }
     }
@@ -47,19 +49,19 @@ class CollisionANDFruit : public Game{
         square.posY <= fruit.posY + fruit.radius * 2);
     }
     void collision(){
-      if((square[0].posX > 450)||(square[0].posX < 0) || (square[0].posY > 450) || (square[0].posY < 0))
+      if((square[0].posX > 450)||(square[0].posX < 0) || (square[0].posY > 450) || (square[0].posY < 0)){
         lose = 1;
-     for (int i = 1; i < squares_quantity; i++) 
+      }
+     for (int i = 1; i < squares_quantity; i++){ 
         if (square[0].posX == square[i].posX && square[0].posY == square[i].posY) {
           lose = 1;
           break;
         }
-      for(int i = 0; i < squares_quantity; i++){
-        if (fruitCollision(square[i], fruit)){
+      }
+      if (fruitCollision(square[0], fruit)){
           fruiteaten = 0;
           squares_quantity++;
         }
-      }
     }
 };
 
@@ -77,7 +79,7 @@ class Movement : public CollisionANDFruit{
     } 
     int movementStateX = 1, movementStateY = 0;
     void snakeMovement(){
-      //usleep(150000);
+
       for (unsigned char i = squares_quantity; i > 0; i--){
         square[i].posX = square[i-1].posX;
         square[i].posY = square[i-1].posY;
@@ -92,18 +94,19 @@ class Movement : public CollisionANDFruit{
 
 class Graphics : public Movement{
   protected:
-    void gameUI(){
-      ClearBackground(BLACK); 
+    void gameUI(){ 
       fruitSpawn();
       snakeMovement();
       collision();
+      ClearBackground(BLACK);
       BeginDrawing();
+      if(fruiteaten){
+      DrawCircle(fruit.posX, fruit.posY, fruit.radius, RED);
+      }
       for (int i = 0; i < squares_quantity; i++){
         DrawRectangle(square[i].posX, square[i].posY, square[0].width, square[0].height, RAYWHITE);
       }
-      DrawCircle(fruit.posX, fruit.posY, fruit.radius, RED);
       EndDrawing();
-      ClearBackground(BLACK); 
 
   }
 };
@@ -114,8 +117,9 @@ class WindowLoop : public Graphics{
       InitWindow(450, 450, "Snake");
       SetTargetFPS(60);
       while(!WindowShouldClose()){
-        if (IsKeyDown(KEY_ESCAPE))
-          break;
+        if (IsKeyDown(KEY_ESCAPE)){
+          WindowShouldClose();
+        }
         if(!lose){
           KeyInput();
           gameUI();
