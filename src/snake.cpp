@@ -36,9 +36,9 @@ class CollisionANDFruit : public Game{
     void fruitSpawn(){
       if (!fruiteaten){
       SetRandomSeed(square[0].posX + squares_quantity + std::time(nullptr));
-      fruit.posX = GetRandomValue(20, 420);
+      fruit.posX = GetRandomValue(20, 330);
       SetRandomSeed(square[0].posY + squares_quantity + std::time(nullptr));
-      fruit.posY = GetRandomValue(20, 420);
+      fruit.posY = GetRandomValue(20, 330);
       fruiteaten = 1;
       }
     }
@@ -94,14 +94,17 @@ class Movement : public CollisionANDFruit{
 
 class Graphics : public Movement{
   protected:
+    int points;
     void gameUI(){ 
       fruitSpawn();
       snakeMovement();
       collision();
       ClearBackground(BLACK);
       BeginDrawing();
+      points = squares_quantity - 20;
+      DrawText(TextFormat("Score: %d", points), 10, 10, 10, GRAY);
       if(fruiteaten){
-      DrawCircle(fruit.posX, fruit.posY, fruit.radius, RED);
+        DrawCircle(fruit.posX, fruit.posY, fruit.radius, RED);
       }
       for (int i = 0; i < squares_quantity; i++){
         DrawRectangle(square[i].posX, square[i].posY, square[0].width, square[0].height, RAYWHITE);
@@ -114,7 +117,7 @@ class Graphics : public Movement{
 class WindowLoop : public Graphics{
   public:
     void windowLoop(){
-      InitWindow(450, 450, "Snake");
+      InitWindow(350, 350, "Snake");
       SetTargetFPS(60);
       while(!WindowShouldClose()){
         if (IsKeyDown(KEY_ESCAPE)){
@@ -127,7 +130,8 @@ class WindowLoop : public Graphics{
         else{
           BeginDrawing();
           ClearBackground(BLACK);
-          DrawText("You Lost. Press ESC to quit.", 50, 100, 20, GRAY);
+          DrawText("You Lost. Press ESC to quit.", 50, 100, 18, GRAY);
+          DrawText(TextFormat("Your final score was: %d", points), 50, 150, 18, GRAY);
           EndDrawing();
       }
     }
