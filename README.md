@@ -13,12 +13,14 @@ Clone the repo:
 
 `cd Snake-Game-raylib`
 
-Creating a build folder:
+Create a build folder:
+
 `mkdir build`
 
 `cd build`
 
 Install dependencies and Make file:
+
 `cmake -S ..`
 
 `make`
