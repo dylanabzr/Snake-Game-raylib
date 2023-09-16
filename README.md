@@ -5,6 +5,7 @@ I recreated the Snake Game in C++ using the raylib API
 ## Installation guide:
 
 just for Linux (and probably MacOS too)
+
 Clone the repo:
 `git clone https://github.com/dylanabzr/Snake-Game-raylib.git`
 
