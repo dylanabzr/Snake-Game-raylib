@@ -26,7 +26,7 @@ public:
 protected:
   int lose {0};
   std::array <SnakeSquare, 400> square;
-  unsigned char squares_quantity {20};
+  unsigned squares_quantity {20};
 };
 
 class CollisionANDFruit : public Game{
@@ -80,7 +80,7 @@ class Movement : public CollisionANDFruit{
     int movementStateX = 1, movementStateY = 0;
     void snakeMovement(){
 
-      for (unsigned char i = squares_quantity; i > 0; i--){
+      for (unsigned i = squares_quantity; i > 0; i--){
         square[i].posX = square[i-1].posX;
         square[i].posY = square[i-1].posY;
       }
@@ -162,4 +162,3 @@ int main(){
   WindowLoop jogo;
   jogo.startGame();
 }
-
