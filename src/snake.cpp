@@ -25,7 +25,7 @@ public:
   }
 protected:
   int lose {0};
-  std::array <SnakeSquare, 400> square;
+  std::array <SnakeSquare, 500> square;
   unsigned squares_quantity {20};
 };
 
@@ -130,7 +130,7 @@ class WindowLoop : public Graphics{
         else{
           BeginDrawing();
           ClearBackground(BLACK);
-          DrawText(TextFormat("        You died.\n\nYour final score was: %d", points), 30, 100, 27, LIGHTGRAY);
+          DrawText(TextFormat("        You died.\n\nYour final score was: %d", points), 20, 100, 24, LIGHTGRAY);
           DrawText("Press ESC to quit.\nPress Enter to play again." ,40, 180, 18, GRAY);
           EndDrawing();
           if (IsKeyDown(KEY_ENTER)){
