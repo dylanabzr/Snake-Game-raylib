@@ -149,6 +149,7 @@ class WindowLoop : public Graphics{
         square[i].posX = 50 + 2 * i;
         square[i].posY = 150 + 2 * i;
       }
+      movementStateX = 1; movementStateY = 0;
 
     }
   public:
