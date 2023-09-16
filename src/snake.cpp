@@ -49,7 +49,7 @@ class CollisionANDFruit : public Game{
         square.posY <= fruit.posY + fruit.radius * 2);
     }
     void collision(){
-      if((square[0].posX > 450)||(square[0].posX < 0) || (square[0].posY > 450) || (square[0].posY < 0)){
+      if((square[0].posX > 350)||(square[0].posX < 0) || (square[0].posY > 350) || (square[0].posY < 0)){
         lose = 1;
       }
      for (int i = 1; i < squares_quantity; i++){ 
@@ -115,7 +115,7 @@ class Graphics : public Movement{
 };
 
 class WindowLoop : public Graphics{
-  public:
+  private:
     void windowLoop(){
       InitWindow(350, 350, "Snake");
       SetTargetFPS(60);
@@ -130,17 +130,35 @@ class WindowLoop : public Graphics{
         else{
           BeginDrawing();
           ClearBackground(BLACK);
-          DrawText("You Lost. Press ESC to quit.", 50, 100, 18, GRAY);
-          DrawText(TextFormat("Your final score was: %d", points), 50, 150, 18, GRAY);
+          DrawText(TextFormat("        You died.\n\nYour final score was: %d", points), 30, 100, 27, LIGHTGRAY);
+          DrawText("Press ESC to quit.\nPress Enter to play again." ,40, 180, 18, GRAY);
           EndDrawing();
+          if (IsKeyDown(KEY_ENTER)){
+            resetGame();
+        }
+        }
+          
       }
-    }
     CloseWindow();
+    }
+    void resetGame(){
+      lose = 0;
+      points = 0;
+      squares_quantity = 20;
+      for (int i = 0; i < squares_quantity; i++){
+        square[i].posX = 50 + 2 * i;
+        square[i].posY = 150 + 2 * i;
+      }
+
+    }
+  public:
+    void startGame(){
+      windowLoop();
   }
-};
+  };
 
 int main(){
   WindowLoop jogo;
-  jogo.windowLoop();
+  jogo.startGame();
 }
 
