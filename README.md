@@ -1,12 +1,8 @@
 # Snake-Game-raylib
 I recreated the Snake Game in C++ using the raylib API
 
-Example of the game: 
 
-
-![gameplay](https://github.com/dylanabzr/Snake-Game-raylib/blob/main/gameplay.gif)
-
-Installation guide:
+## Installation guide:
 
 Clone the repo:
 `git clone https://github.com/dylanabzr/Snake-Game-raylib.git`
@@ -31,3 +27,7 @@ Now execute the game:
 `./snake`
 
 
+## Gameplay 
+
+
+![gameplay](https://github.com/dylanabzr/Snake-Game-raylib/blob/main/gameplay.gif)
