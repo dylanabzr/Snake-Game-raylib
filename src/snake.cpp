@@ -25,7 +25,7 @@ public:
   }
 protected:
   int lose {0};
-  std::array <SnakeSquare, 500> square;
+  std::array <SnakeSquare, 1000> square;
   unsigned squares_quantity {20};
 };
 
