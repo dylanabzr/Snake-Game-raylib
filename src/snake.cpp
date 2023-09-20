@@ -69,11 +69,11 @@ class Movement : public CollisionANDFruit{
   protected:
     void KeyInput(){
       if(!movementStateX){
-        movementStateX = (1 * IsKeyDown(KEY_RIGHT)) + (-1 * IsKeyDown(KEY_LEFT)); 
+        movementStateX = (IsKeyDown(KEY_RIGHT)) + (-1 * IsKeyDown(KEY_LEFT)); 
         movementStateY *= !movementStateX;
       }
       if(!movementStateY){
-        movementStateY = (1 * IsKeyDown(KEY_DOWN)) + (-1 * IsKeyDown(KEY_UP));
+        movementStateY = (IsKeyDown(KEY_DOWN)) + (-1 * IsKeyDown(KEY_UP));
         movementStateX *= !movementStateY;
       }  
     } 
