@@ -35,9 +35,7 @@ class CollisionANDFruit : public Game{
     int fruiteaten {0};
     void fruitSpawn(){
       if (!fruiteaten){
-      SetRandomSeed(square[0].posX + squares_quantity + std::time(nullptr));
       fruit.posX = GetRandomValue(20, 330);
-      SetRandomSeed(square[0].posY + squares_quantity + std::time(nullptr));
       fruit.posY = GetRandomValue(20, 330);
       fruiteaten = 1;
       }
@@ -117,6 +115,7 @@ class Graphics : public Movement{
 class WindowLoop : public Graphics{
   private:
     void windowLoop(){
+      SetRandomSeed(std::time(nullptr));
       InitWindow(350, 350, "Snake");
       SetTargetFPS(60);
       while(!WindowShouldClose()){
