@@ -35,13 +35,14 @@ class CollisionANDFruit : public Game{
     int fruiteaten {0};
     void fruitSpawn(){
       if (!fruiteaten){
-      fruit.posX = GetRandomValue(20, 330);
-      fruit.posY = GetRandomValue(20, 330);
-      fruiteaten = 1;
+        fruit.posX = GetRandomValue(20, 330);
+        fruit.posY = GetRandomValue(20, 330);
+        fruiteaten = 1;
       }
     }
     int fruitCollision(SnakeSquare square, Fruit fruit){
-      return (square.posX + square.width >= fruit.posX &&
+      return 
+        (square.posX + square.width >= fruit.posX &&
         square.posX <= fruit.posX + fruit.radius * 2 &&
         square.posY + square.height >= fruit.posY &&
         square.posY <= fruit.posY + fruit.radius * 2);
