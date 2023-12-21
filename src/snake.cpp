@@ -126,16 +126,15 @@ class WindowLoop : public Graphics{
         if(!lose){
           KeyInput();
           gameUI();
+          continue;
         }
-        else{
-          BeginDrawing();
-          ClearBackground(BLACK);
-          DrawText(TextFormat("        You died.\n\nYour final score was: %d", points), 20, 100, 24, LIGHTGRAY);
-          DrawText("Press ESC to quit.\nPress Enter to play again." ,40, 180, 18, GRAY);
-          EndDrawing();
-          if (IsKeyDown(KEY_ENTER)){
-            resetGame();
-        }
+        BeginDrawing();
+        ClearBackground(BLACK);
+        DrawText(TextFormat("\t\t\t\tYou died.\n\nYour final score was: %d", points), 20, 100, 24, LIGHTGRAY);
+        DrawText("Press ESC to quit.\nPress Enter to play again." ,40, 180, 18, GRAY);
+        EndDrawing();
+        if (IsKeyDown(KEY_ENTER)){
+          resetGame();
         }
           
       }
